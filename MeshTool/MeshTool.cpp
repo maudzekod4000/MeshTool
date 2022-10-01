@@ -5,10 +5,17 @@
 #include "lib/rapidjson-1.1.0/stringbuffer.h"
 #include "lib/rapidjson-1.1.0/document.h"
 
-using namespace rapidjson;
+#include "src/files/FileReader.h"
 
+using namespace rapidjson;
+using namespace std;
 int main()
 {
+  FileReader reader;
+  reader.load("task_input/pyramid.json");
+  cout << reader.getText() << endl;
+  reader.~FileReader();
+  
   // 1. Parse a JSON string into DOM.
   const char* json = "{\"project\":\"rapidjson\",\"stars\":10}";
   Document d;
