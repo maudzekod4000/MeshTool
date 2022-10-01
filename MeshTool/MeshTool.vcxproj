@@ -151,7 +151,6 @@
     <ClInclude Include="src\models\GeometryObject.h" />
     <ClInclude Include="src\models\Triangle.h" />
     <ClInclude Include="src\models\TypeDefs.h" />
-    <ClInclude Include="src\models\Vertex.h" />
     <ClInclude Include="src\parser\GeometryObjectParser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
