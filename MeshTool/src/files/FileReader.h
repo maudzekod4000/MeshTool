@@ -4,13 +4,13 @@
 #include <string>
 
 /// <summary>
-/// Loads file's contents as text and keeps them as long as FileReader's lifetime.
+/// Loads file's contents as text and keeps them for the duration of FileReader's lifetime.
 /// </summary>
 class FileReader {
 public:
 
 	/// <summary>
-	/// Loads and stores the contents of the file in a field.
+	/// Loads and stores the contents of the file in a private field.
 	/// </summary>
 	/// <param name="path">Path to the file</param>
 	/// <returns>Flag to indicate whether operation was successful.</returns>

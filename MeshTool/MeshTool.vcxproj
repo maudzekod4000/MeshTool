@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="MeshTool.cpp" />
     <ClCompile Include="src\files\FileReader.cpp" />
+    <ClCompile Include="src\models\factories\MeshFactory.cpp" />
     <ClCompile Include="src\parser\GeometryObjectParser.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,7 +149,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\files\FileReader.h" />
+    <ClInclude Include="src\models\factories\MeshFactory.h" />
     <ClInclude Include="src\models\GeometryObject.h" />
+    <ClInclude Include="src\models\Mesh.h" />
     <ClInclude Include="src\models\Triangle.h" />
     <ClInclude Include="src\models\TypeDefs.h" />
     <ClInclude Include="src\parser\GeometryObjectParser.h" />

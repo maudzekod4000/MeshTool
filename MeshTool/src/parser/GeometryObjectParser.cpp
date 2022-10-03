@@ -29,8 +29,6 @@ void GeometryObjectParser::parse(const std::string& json)
   for (auto& jsonArrVal : triangles.GetArray()) {
     geometryObject.triangles.push_back(jsonArrVal.GetInt());
   }
-
-  std::cout << "Hello" << std::endl;
 }
 
 const GeometryObject& GeometryObjectParser::getGeometryObject() const
