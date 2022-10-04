@@ -11,7 +11,7 @@ int main()
 {
   //TODO: Create a command prompt with the file path and print info about the mesh + statistics how long it took to calculate it.
   FileReader reader;
-  reader.load("task_input/pyramid.json");
+  reader.load("task_input/lucy.json");
   
   GeometryObjectParser parser;
   parser.parse(reader.getText());

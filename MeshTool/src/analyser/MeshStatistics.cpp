@@ -4,7 +4,7 @@
 
 #include "../utils/MathUtils.h"
 
-MeshStatistics::Stats MeshStatistics::calculate(std::vector<Triangle>::const_iterator begin, std::vector<Triangle>::const_iterator end, size_t count) {
+MeshStatistics::Stats MeshStatistics::gatherStatsSeq(std::vector<Triangle>::const_iterator begin, std::vector<Triangle>::const_iterator end, size_t count) {
 	MeshStatistics::Stats stats;
 	float totalArea = 0.0f;
 	float largestArea = 0.0f;
