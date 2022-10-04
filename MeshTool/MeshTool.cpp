@@ -31,7 +31,7 @@ int main()
 
     auto duration = duration_cast<milliseconds>(end - start);
 
-    cout << "Sequential mesh statistics time: " << duration.count() << endl;
+    cout << "Sequential mesh statistics time: " << duration.count() << " and average area: " << meshStats.avgArea << endl;
   }
 
   {
@@ -44,7 +44,7 @@ int main()
 
     auto duration = duration_cast<milliseconds>(end - start);
 
-    cout << "Parallel mesh statistics time: " << duration.count() << endl;
+    cout << "Parallel mesh statistics time: " << duration.count() << " and average area: " << meshStats.avgArea << endl;
   }
 
   return 0;

@@ -1,5 +1,6 @@
 #include "MeshStatistics.h"
 
+#include <iostream>
 #include <limits>
 #include <future>
 #include <thread>
@@ -40,29 +41,23 @@ MeshStatistics::Stats MeshStatistics::gatherStatsSeq(std::vector<Triangle>::cons
 
 MeshStatistics::Stats MeshStatistics::gatherStats(std::vector<Triangle>::const_iterator begin, std::vector<Triangle>::const_iterator end, size_t parallelLowLimit)
 {
-	if (std::distance(begin, end) < parallelLowLimit) {
+	if (std::distance(begin, end) < parallelLowLimit + 1) {
 		return gatherStatsSeq(begin, end);
 	}
 
 	size_t mid = std::distance(begin, end) / 2;
 
-	std::promise<MeshStatistics::Stats> leftPromise;
+	MeshStatistics::Stats leftStats;
 
 	auto leftJob = std::thread([&] {
-		leftPromise.set_value(gatherStats(begin, begin + mid, parallelLowLimit));
+		leftStats = gatherStats(begin, begin + mid, parallelLowLimit);
 	});
 
-	std::promise<MeshStatistics::Stats> rightPromise;
+	MeshStatistics::Stats rightStats;
 
 	auto rightJob = std::thread([&] {
-		rightPromise.set_value(gatherStats(begin + mid, end, parallelLowLimit));
+		rightStats = gatherStats(begin + mid, end, parallelLowLimit);
 	});
-
-	auto leftFuture = leftPromise.get_future();
-	auto rightFuture = rightPromise.get_future();
-
-	MeshStatistics::Stats leftStats = leftFuture.get();
-	MeshStatistics::Stats rightStats = rightFuture.get();
 
 	leftJob.join();
 	rightJob.join();
