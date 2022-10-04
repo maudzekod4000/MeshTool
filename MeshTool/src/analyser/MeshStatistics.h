@@ -6,8 +6,7 @@
 
 #include "../models/Triangle.h"
 
-class MeshStatistics {
-public:
+namespace MeshStatistics {
 	static struct StatsTriangle {
 		Vertex a;
 		Vertex b;
@@ -27,7 +26,9 @@ public:
 	/// falls below the sensible lower limit for further division and thread creation.
 	/// </summary>
 	/// <returns>Statistics about the mesh. See MeshStatistics::Stats.</returns>
-	Stats gatherStatsSeq(std::vector<Triangle>::const_iterator begin, std::vector<Triangle>::const_iterator end, size_t count);
+	Stats gatherStatsSeq(std::vector<Triangle>::const_iterator begin, std::vector<Triangle>::const_iterator end);
+
+	Stats gatherStats(std::vector<Triangle>::const_iterator begin, std::vector<Triangle>::const_iterator end, size_t parallelLowLimit);
 };
 
 #endif // !MESH_STATISTICS_H
