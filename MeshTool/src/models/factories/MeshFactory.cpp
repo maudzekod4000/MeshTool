@@ -1,5 +1,8 @@
 #include "MeshFactory.h"
 
+#include "../Vertex.h"
+#include "../../utils/MathUtils.h"
+
 // TODO: Maybe return const unique ptr?
 std::unique_ptr<Mesh> MeshFactory::create(const GeometryObject& geometryObject)
 {
@@ -43,11 +46,13 @@ std::unique_ptr<Mesh> MeshFactory::create(const GeometryObject& geometryObject)
 		unsigned int triangleIndicesIndex = 0;
 
 		while (triangleIndicesIndex < trianglesIndicesCount) {
-			meshPtr->triangles.emplace_back(
-				meshPtr->verticesIndex[geometryObject.trianglesIndices[triangleIndicesIndex]],
-				meshPtr->verticesIndex[geometryObject.trianglesIndices[triangleIndicesIndex + 1]],
-				meshPtr->verticesIndex[geometryObject.trianglesIndices[triangleIndicesIndex + 2]]
-			);
+			Vertex& v1 = meshPtr->verticesIndex[geometryObject.trianglesIndices[triangleIndicesIndex]];
+			Vertex& v2 = meshPtr->verticesIndex[geometryObject.trianglesIndices[triangleIndicesIndex + 1]];
+			Vertex& v3 = meshPtr->verticesIndex[geometryObject.trianglesIndices[triangleIndicesIndex + 2]];
+
+			MathUtils::accumulateSmoothNormal(v1, v2, v3);
+
+			meshPtr->triangles.emplace_back(v1, v2, v3);
 
 			triangleIndicesIndex += COMPONENTS_PER_TRIANGLE;
 		}

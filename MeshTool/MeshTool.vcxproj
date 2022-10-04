@@ -154,6 +154,7 @@
     <ClInclude Include="src\models\Mesh.h" />
     <ClInclude Include="src\models\Triangle.h" />
     <ClInclude Include="src\models\TypeDefs.h" />
+    <ClInclude Include="src\models\Vertex.h" />
     <ClInclude Include="src\parser\GeometryObjectParser.h" />
     <ClInclude Include="src\utils\MathUtils.h" />
   </ItemGroup>
