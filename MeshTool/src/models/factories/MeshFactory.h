@@ -7,7 +7,7 @@
 #include "../GeometryObject.h"
 
 /// <summary>
-/// A collection of methods used to create an instance of a Mesh.
+/// A collection of methods used to create instance of a Mesh.
 /// </summary>
 namespace MeshFactory {
 	std::unique_ptr<Mesh> create(const GeometryObject& geometryObject);

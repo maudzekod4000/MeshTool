@@ -16,18 +16,18 @@ void GeometryObjectParser::parse(const std::string& json)
 
   Value& vertices = d["geometry_object"]["vertices"];
   size_t verticesSize = vertices.GetArray().Size();
-  geometryObject.vertices.reserve(verticesSize);
+  geometryObject.verticesComponents.reserve(verticesSize);
   
   for (auto& jsonArrVal : vertices.GetArray()) {
-    geometryObject.vertices.push_back(jsonArrVal.GetFloat());
+    geometryObject.verticesComponents.push_back(jsonArrVal.GetFloat());
   }
 
   Value& triangles = d["geometry_object"]["triangles"];
   size_t trianglesSize = triangles.GetArray().Size();
-  geometryObject.triangles.reserve(trianglesSize);
+  geometryObject.trianglesIndices.reserve(trianglesSize);
 
   for (auto& jsonArrVal : triangles.GetArray()) {
-    geometryObject.triangles.push_back(jsonArrVal.GetInt());
+    geometryObject.trianglesIndices.push_back(jsonArrVal.GetInt());
   }
 }
 

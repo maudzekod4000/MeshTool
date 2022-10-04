@@ -2,18 +2,16 @@
 #define TRIANGLE_H
 
 #include "TypeDefs.h"
+#include "../utils/MathUtils.h"
 
-struct Triangle {
-	Vertex a;
-	Vertex b;
-	Vertex c;
+class Triangle {
+public:
+	Triangle(Vertex& a, Vertex& b, Vertex& c) : a(a), b(b), c(c), smoothNormal(MathUtils::calculateSurfaceGeometricNormal(a, b, c)) {}
+
+	Vertex& a;
+	Vertex& b;
+	Vertex& c;
 	Vector3D smoothNormal;
-
-	/// <summary>
-	/// The number of geometric normals calculated for this vertex.
-	/// Used to get an accumilated average for smooth normal.
-	/// </summary>
-	unsigned int geometricNormalsCount;
 };
 
 #endif // !TRIANGLE_H

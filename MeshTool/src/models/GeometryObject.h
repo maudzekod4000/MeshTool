@@ -4,8 +4,8 @@
 #include <vector>
 
 struct GeometryObject {
-	std::vector<float> vertices;
-	std::vector<int> triangles;
+	std::vector<float> verticesComponents;
+	std::vector<int> trianglesIndices;
 };
 
 #endif // !GEOMETRY_OBJECT_H
