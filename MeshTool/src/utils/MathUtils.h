@@ -3,6 +3,8 @@
 
 #include "../models/TypeDefs.h"
 #include "../models/Vertex.h"
+#include "../models/Triangle.h"
+#include "../../lib/glm/gtx/projection.hpp"
 
 namespace MathUtils {
 	inline Vector3D calculateSurfaceGeometricNormal(const Point3D& v1, const Point3D& v2, const Point3D& v3) {
@@ -27,6 +29,13 @@ namespace MathUtils {
 
 		v3.smoothNormal += triangleNormal;
 		v3.smoothNormal = glm::normalize(v3.smoothNormal);
+	}
+
+	inline float calculateArea(const Triangle& triangle) {
+		Vector3D ab = triangle.b.position - triangle.a.position;
+		Vector3D ac = triangle.c.position - triangle.a.position;
+		
+		return glm::length(glm::cross(ab, ac)) / 2.0f;
 	}
 }
 

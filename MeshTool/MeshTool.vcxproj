@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MeshTool.cpp" />
+    <ClCompile Include="src\analyser\MeshStatistics.cpp" />
     <ClCompile Include="src\files\FileReader.cpp" />
     <ClCompile Include="src\models\factories\MeshFactory.cpp" />
     <ClCompile Include="src\parser\GeometryObjectParser.cpp" />
@@ -148,6 +149,7 @@
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\analyser\MeshStatistics.h" />
     <ClInclude Include="src\files\FileReader.h" />
     <ClInclude Include="src\models\factories\MeshFactory.h" />
     <ClInclude Include="src\models\GeometryObject.h" />

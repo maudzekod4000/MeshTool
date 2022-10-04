@@ -50,6 +50,7 @@ std::unique_ptr<Mesh> MeshFactory::create(const GeometryObject& geometryObject)
 			Vertex& v2 = meshPtr->verticesIndex[geometryObject.trianglesIndices[triangleIndicesIndex + 1]];
 			Vertex& v3 = meshPtr->verticesIndex[geometryObject.trianglesIndices[triangleIndicesIndex + 2]];
 
+			// For each triangle, improve the smooth normal of the vertices.
 			MathUtils::accumulateSmoothNormal(v1, v2, v3);
 
 			meshPtr->triangles.emplace_back(v1, v2, v3);

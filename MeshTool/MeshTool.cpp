@@ -4,6 +4,7 @@
 #include "src/files/FileReader.h"
 #include "src/parser/GeometryObjectParser.h"
 #include "src/models/factories/MeshFactory.h"
+#include "src/analyser/MeshStatistics.h"
 
 using namespace std;
 int main()
@@ -18,6 +19,8 @@ int main()
   GeometryObject o = parser.getGeometryObject();
 
   std::unique_ptr<Mesh> mesh = MeshFactory::create(o);
+
+  MeshStatistics::Stats meshStats = MeshStatistics::calculate(mesh->triangles.cbegin(), mesh->triangles.cend(), mesh->triangles.size());
   
   return 0;
 }
