@@ -28,7 +28,7 @@ namespace MeshStatistics {
 	/// <returns>Statistics about the mesh. See MeshStatistics::Stats.</returns>
 	Stats gatherStatsSeq(std::vector<Triangle>::const_iterator begin, std::vector<Triangle>::const_iterator end);
 
-	Stats gatherStats(std::vector<Triangle>::const_iterator begin, std::vector<Triangle>::const_iterator end, size_t parallelLowLimit);
+	Stats gatherStats(std::vector<Triangle>::const_iterator begin, std::vector<Triangle>::const_iterator end);
 };
 
 #endif // !MESH_STATISTICS_H

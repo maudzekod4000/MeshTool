@@ -39,7 +39,7 @@ int main()
     auto processorCount = std::thread::hardware_concurrency();
     auto trianglesPerCore = mesh->triangles.size() / processorCount;
 
-    MeshStatistics::Stats meshStats = MeshStatistics::gatherStats(mesh->triangles.cbegin(), mesh->triangles.cend(), trianglesPerCore);
+    MeshStatistics::Stats meshStats = MeshStatistics::gatherStats(mesh->triangles.cbegin(), mesh->triangles.cend());
     auto end = high_resolution_clock::now();
 
     auto duration = duration_cast<milliseconds>(end - start);

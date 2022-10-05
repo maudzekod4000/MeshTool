@@ -7,7 +7,8 @@
 
 #include "../utils/MathUtils.h"
 
-MeshStatistics::Stats MeshStatistics::gatherStatsSeq(std::vector<Triangle>::const_iterator begin, std::vector<Triangle>::const_iterator end) {
+MeshStatistics::Stats MeshStatistics::gatherStatsSeq(std::vector<Triangle>::const_iterator begin, std::vector<Triangle>::const_iterator end)
+{
 	size_t count = std::distance(begin, end);
 	MeshStatistics::Stats stats;
 	float totalArea = 0.0f;
@@ -39,34 +40,57 @@ MeshStatistics::Stats MeshStatistics::gatherStatsSeq(std::vector<Triangle>::cons
 	return stats;
 }
 
-MeshStatistics::Stats MeshStatistics::gatherStats(std::vector<Triangle>::const_iterator begin, std::vector<Triangle>::const_iterator end, size_t parallelLowLimit)
+MeshStatistics::Stats MeshStatistics::gatherStats(std::vector<Triangle>::const_iterator begin, std::vector<Triangle>::const_iterator end)
 {
-	if (std::distance(begin, end) < parallelLowLimit + 1) {
-		return gatherStatsSeq(begin, end);
+	auto coreCount = std::thread::hardware_concurrency();
+	auto triangleCount = std::distance(begin, end);
+	auto trianglesPerCore = triangleCount / coreCount;
+
+	std::vector<std::promise<MeshStatistics::Stats>> promises(coreCount);
+	std::vector<std::thread> threads;
+	std::vector<std::future<MeshStatistics::Stats>> futures;
+
+	for (size_t idx = 0; idx < coreCount; idx++) {
+		auto finish = begin + trianglesPerCore;
+
+		if (finish > end) {
+			finish = end;
+		}
+
+		threads.push_back(std::thread([&promises, idx, begin, finish] {
+			promises[idx].set_value(MeshStatistics::gatherStatsSeq(begin, finish));
+		}));
+		futures.push_back(promises[idx].get_future());
+
+		begin = finish;
 	}
 
-	size_t mid = std::distance(begin, end) / 2;
+	std::vector<MeshStatistics::Stats> stats;
 
-	MeshStatistics::Stats leftStats;
+	for (auto& future : futures) {
+		stats.push_back(future.get());
+	}
 
-	auto leftJob = std::thread([&] {
-		leftStats = gatherStats(begin, begin + mid, parallelLowLimit);
-	});
+	for (auto& thread : threads) {
+		thread.join();
+	}
 
-	MeshStatistics::Stats rightStats;
+	MeshStatistics::Stats combinedStats{ stats[0].smallest, stats[0].largest, 0.0f };
+	float totalArea = 0.0f;
 
-	auto rightJob = std::thread([&] {
-		rightStats = gatherStats(begin + mid, end, parallelLowLimit);
-	});
+	for (auto& stat : stats) {
+		if (stat.smallest.area < combinedStats.smallest.area) {
+			combinedStats.smallest = stat.smallest;
+		}
 
-	leftJob.join();
-	rightJob.join();
+		if (stat.largest.area > combinedStats.largest.area) {
+			combinedStats.largest = stat.largest;
+		}
 
-	MeshStatistics::Stats combinedStats;
+		totalArea += stat.avgArea;
+	}
 
-	combinedStats.largest = leftStats.largest.area > rightStats.largest.area ? leftStats.largest : rightStats.largest;
-	combinedStats.smallest = leftStats.smallest.area < rightStats.smallest.area ? leftStats.smallest : rightStats.smallest;
-	combinedStats.avgArea = (leftStats.avgArea + rightStats.avgArea) / 2.0f;
+	combinedStats.avgArea = totalArea / stats.size();
 
 	return combinedStats;
 }
