@@ -73,6 +73,10 @@ int main(int argc, char** argv)
   cout << "The largest triangle is with area " << meshStats.largest.area << endl;
   cout << "The average area of all triangles is " << meshStats.avgArea << endl;
 
+  VertexArrayObject vao;
+  vao.init();
+  vao.bind();
+
   VertexBufferObject vbo;
   vbo.init(GL_ARRAY_BUFFER);
   vbo.bind();
@@ -85,12 +89,7 @@ int main(int argc, char** argv)
     buffer[i] = o.verticesComponents[i];
   }
 
-  vbo.fillBuffer(buffer, componentCount);
-
-  VertexArrayObject vao;
-  vao.init();
-  vao.bind();
-  
+  vbo.fillBuffer(buffer, componentCount * sizeof(float));
 
   ElementBufferObject ebo;
   ebo.init();
@@ -104,7 +103,7 @@ int main(int argc, char** argv)
   }
 
   ebo.bind();
-  ebo.fillBuffer(indices, indicesCount);
+  ebo.fillBuffer(indices, indicesCount * sizeof(unsigned int));
 
   vao.addAttribute(VertexAttribute{ 0,3,3,0 });
 
