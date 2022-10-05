@@ -78,6 +78,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\Projects\MeshTool\MeshTool\lib;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Projects\MeshTool\MeshTool\lib;$(LibraryPath)</LibraryPath>
+    <SourcePath>D:\Projects\MeshTool\MeshTool\lib;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -120,6 +123,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,18 +143,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lib\glad.c" />
     <ClCompile Include="MeshTool.cpp" />
     <ClCompile Include="src\analyser\MeshStatistics.cpp" />
     <ClCompile Include="src\files\FileReader.cpp" />
+    <ClCompile Include="src\graphics\Graphics.cpp" />
+    <ClCompile Include="src\graphics\KeyboardInput.cpp" />
+    <ClCompile Include="src\graphics\opengl\ebo\ElementBufferObject.cpp" />
+    <ClCompile Include="src\graphics\opengl\shader\ShaderLoader.cpp" />
+    <ClCompile Include="src\graphics\opengl\shader\ShaderProgram.cpp" />
+    <ClCompile Include="src\graphics\opengl\vao\VertexArrayObject.cpp" />
+    <ClCompile Include="src\graphics\opengl\vbo\VertexBufferObject.cpp" />
+    <ClCompile Include="src\graphics\Window.cpp" />
     <ClCompile Include="src\models\factories\MeshFactory.cpp" />
     <ClCompile Include="src\parser\GeometryObjectParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
+    <None Include="src\graphics\shaders\fragment_shader.glsl" />
+    <None Include="src\graphics\shaders\vertex_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\analyser\MeshStatistics.h" />
     <ClInclude Include="src\files\FileReader.h" />
+    <ClInclude Include="src\graphics\Graphics.h" />
+    <ClInclude Include="src\graphics\KeyboardInput.h" />
+    <ClInclude Include="src\graphics\opengl\ebo\ElementBufferObject.h" />
+    <ClInclude Include="src\graphics\opengl\shader\ShaderLoader.h" />
+    <ClInclude Include="src\graphics\opengl\shader\ShaderProgram.h" />
+    <ClInclude Include="src\graphics\opengl\vao\VertexArrayObject.h" />
+    <ClInclude Include="src\graphics\opengl\vbo\VertexBufferObject.h" />
+    <ClInclude Include="src\graphics\Window.h" />
     <ClInclude Include="src\models\factories\MeshFactory.h" />
     <ClInclude Include="src\models\GeometryObject.h" />
     <ClInclude Include="src\models\Mesh.h" />
