@@ -57,7 +57,7 @@ int main(int argc, char** argv)
   camera.init(45.0f, 800 / 600, 0.1f, 100.0f, Point3D(0.0f, 0.0f, -3.0f), Point3D(0.0f), 800, 600);
 
   FileReader reader;
-  reader.load("task_input/pyramid.json");
+  reader.load("task_input/lucy.json");
 
   GeometryObjectParser parser;
   parser.parse(reader.getText());
@@ -89,7 +89,8 @@ int main(int argc, char** argv)
     buffer[i] = o.verticesComponents[i];
   }
 
-  vbo.fillBuffer(buffer, componentCount * sizeof(float));
+  vbo.fillBuffer(buffer, componentCount);
+  delete[] buffer;
 
   ElementBufferObject ebo;
   ebo.init();
@@ -104,6 +105,7 @@ int main(int argc, char** argv)
 
   ebo.bind();
   ebo.fillBuffer(indices, indicesCount * sizeof(unsigned int));
+  delete[] indices;
 
   vao.addAttribute(VertexAttribute{ 0,3,3,0 });
 
