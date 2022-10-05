@@ -25,7 +25,7 @@ MeshStatistics::Stats MeshStatistics::gatherStatsSeq(std::vector<Triangle>::cons
 			stats.largest = StatsTriangle{ triangle.a, triangle.b, triangle.c, area };
 		}
 
-		if (area < smallestArea) {
+		if (area < smallestArea && area > 0.0f) {
 			smallestArea = area;
 			stats.smallest = StatsTriangle{ triangle.a, triangle.b, triangle.c, area };
 		}
