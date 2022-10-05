@@ -147,6 +147,8 @@
     <ClCompile Include="MeshTool.cpp" />
     <ClCompile Include="src\analyser\MeshStatistics.cpp" />
     <ClCompile Include="src\files\FileReader.cpp" />
+    <ClCompile Include="src\graphics\camera\Camera.cpp" />
+    <ClCompile Include="src\graphics\camera\FPSCamera.cpp" />
     <ClCompile Include="src\graphics\Graphics.cpp" />
     <ClCompile Include="src\graphics\KeyboardInput.cpp" />
     <ClCompile Include="src\graphics\opengl\ebo\ElementBufferObject.cpp" />
@@ -166,6 +168,8 @@
   <ItemGroup>
     <ClInclude Include="src\analyser\MeshStatistics.h" />
     <ClInclude Include="src\files\FileReader.h" />
+    <ClInclude Include="src\graphics\camera\Camera.h" />
+    <ClInclude Include="src\graphics\camera\FPSCamera.h" />
     <ClInclude Include="src\graphics\Graphics.h" />
     <ClInclude Include="src\graphics\KeyboardInput.h" />
     <ClInclude Include="src\graphics\opengl\ebo\ElementBufferObject.h" />
