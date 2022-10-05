@@ -44,8 +44,8 @@ int main(int argc, char** argv)
 
   ShaderProgram shader;
   shader.init();
-  shader.attachVertexShader("src/graphics/shaders/vertex_shader");
-  shader.attachFragmentShader("src/graphics/shaders/fragment_shader");
+  shader.attachVertexShader("shaders/vertex_shader");
+  shader.attachFragmentShader("shaders/fragment_shader");
   shader.link();
   shader.use();
 
@@ -57,7 +57,7 @@ int main(int argc, char** argv)
   camera.init(45.0f, 800 / 600, 0.1f, 100.0f, Point3D(0.0f, 0.0f, -3.0f), Point3D(0.0f), 800, 600);
 
   FileReader reader;
-  reader.load("task_input/lucy.json");
+  reader.load("task_input/teapot.json");
 
   GeometryObjectParser parser;
   parser.parse(reader.getText());
