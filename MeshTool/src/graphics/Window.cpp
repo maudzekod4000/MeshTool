@@ -56,6 +56,24 @@ void Window::disableCursor() const
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
+void Window::enableCursor() const
+{
+	
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+}
+
+void Window::toggleCursor() const
+{
+	auto mode = glfwGetInputMode(window, GLFW_CURSOR);
+
+	if (mode == GLFW_CURSOR_NORMAL) {
+		disableCursor();
+	}
+	else {
+		enableCursor();
+	}
+}
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);

@@ -11,6 +11,9 @@
 // Graphics related
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_glfw.h>
+#include <imgui/imgui_impl_opengl3.h>
 
 #include "src/graphics/Graphics.h"
 #include "src/graphics/Window.h"
@@ -111,10 +114,34 @@ int main(int argc, char** argv)
 
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+  IMGUI_CHECKVERSION();
+  ImGui::CreateContext();
+  ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+  // Setup Dear ImGui style
+  ImGui::StyleColorsDark();
+  //ImGui::StyleColorsLight();
+
+  // Setup Platform/Renderer backends
+  ImGui_ImplGlfw_InitForOpenGL(windowPtr->getRaw(), true);
+  ImGui_ImplOpenGL3_Init("#version 130");
+
+  // Our state
+  bool show_demo_window = true;
+  bool show_another_window = false;
+  ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
   while (true) {
     windowPtr->clear();
 
     g.pollEvents();
+
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    if (show_demo_window)
+      ImGui::ShowDemoWindow(&show_demo_window);
 
     if (keyboard.isKeyPressed(GLFW_KEY_W)) {
       camera.moveForward();
@@ -128,11 +155,18 @@ int main(int argc, char** argv)
     else if (keyboard.isKeyPressed(GLFW_KEY_D)) {
       camera.moveRight();
     }
+    else if (keyboard.isKeyPressed(GLFW_KEY_M)) {
+      windowPtr->toggleCursor();
+    }
 
     shader.setUniformMat4("view", camera.getView());
     shader.setUniformMat4("projection", camera.getProjection());
 
     glDrawElements(GL_TRIANGLES, indicesCount, GL_UNSIGNED_INT, 0);
+
+    // Rendering
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     windowPtr->swapBuffers();
   }
