@@ -17,3 +17,8 @@ void ElementBufferObject::fillBuffer(void* data, int sizeInBytes)
 {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeInBytes, data, GL_STATIC_DRAW);
 }
+
+ElementBufferObject::~ElementBufferObject()
+{
+	glDeleteBuffers(1, &id);
+}

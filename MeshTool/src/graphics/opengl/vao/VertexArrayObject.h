@@ -20,6 +20,7 @@ public:
 	* offset - how many float values we have between the start of the current vertex and the current coordinates.
 	*/
 	void addAttribute(VertexAttribute attribute) const;
+	~VertexArrayObject();
 private:
 	unsigned int id;
 };

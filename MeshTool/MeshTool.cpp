@@ -27,8 +27,6 @@
 #include "src/viewer/GPUBufferLoader.h"
 #include "src/viewer/MeshLoader.h"
 
-using namespace std;
-
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 FPSCamera camera;
@@ -37,7 +35,7 @@ int main(int argc, char** argv)
 {
   Graphics g;
   g.init();
-  std::shared_ptr<Window> windowPtr = make_shared<Window>();
+  std::shared_ptr<Window> windowPtr = std::make_shared<Window>();
   windowPtr->init(800, 600, "Mesh Tool");
   windowPtr->makeActive();
 
