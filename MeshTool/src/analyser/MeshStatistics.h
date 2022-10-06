@@ -19,6 +19,7 @@ namespace MeshStatistics {
 		MeshStatistics::StatsTriangle smallest;
 		MeshStatistics::StatsTriangle largest;
 		float avgArea;
+		size_t triangleCount;
 	};
 
 	/// <summary>

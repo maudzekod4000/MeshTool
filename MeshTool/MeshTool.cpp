@@ -88,6 +88,7 @@ int main(int argc, char** argv)
     drawTriangleStats("Smallest triangle:", stats.smallest);
     drawTriangleStats("Largest triangle:", stats.largest);
     ImGui::TextColored(labelColor, "Average Area: %f", stats.avgArea);
+    ImGui::TextColored(labelColor, "Triangle Count: %d", stats.triangleCount);
   };
 
   const char* meshItems[3] = { "task_input/pyramid.json", "task_input/teapot.json", "task_input/lucy.json" };

@@ -36,6 +36,7 @@ MeshStatistics::Stats MeshStatistics::gatherStatsSeq(std::vector<Triangle>::cons
 	}
 
 	stats.avgArea = totalArea / count;
+	stats.triangleCount = count;
 
 	return stats;
 }
@@ -91,6 +92,7 @@ MeshStatistics::Stats MeshStatistics::gatherStats(std::vector<Triangle>::const_i
 	}
 
 	combinedStats.avgArea = totalArea / stats.size();
+	combinedStats.triangleCount = triangleCount;
 
 	return combinedStats;
 }
