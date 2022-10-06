@@ -24,6 +24,7 @@ std::unique_ptr<Mesh> MeshFactory::create(const GeometryObject& geometryObject)
 				std::piecewise_construct,
 				std::make_tuple(vertexId),
 				std::make_tuple(
+					vertexId,
 					geometryObject.verticesComponents[vertexComponentIndex],
 					geometryObject.verticesComponents[vertexComponentIndex + 1],
 					geometryObject.verticesComponents[vertexComponentIndex + 2]

@@ -34,11 +34,10 @@ MeshStatistics::Stats MeshStatistics::gatherStatsSeq(std::vector<Triangle>::cons
 
 		totalArea += area;
 
-		begin++;
+		++begin;
 	}
 
 	stats.avgArea = totalArea / count;
-	stats.triangleCount = count;
 
 	return stats;
 }
@@ -63,8 +62,8 @@ MeshStatistics::Stats MeshStatistics::gatherStats(std::vector<Triangle>::const_i
 		threads.push_back(std::thread([&promises, idx, begin, finish] {
 			promises[idx].set_value(MeshStatistics::gatherStatsSeq(begin, finish));
 		}));
-		futures.push_back(promises[idx].get_future());
 
+		futures.push_back(promises[idx].get_future());
 		begin = finish;
 	}
 
@@ -97,15 +96,4 @@ MeshStatistics::Stats MeshStatistics::gatherStats(std::vector<Triangle>::const_i
 	combinedStats.triangleCount = triangleCount;
 
 	return combinedStats;
-}
-
-bool MeshStatistics::isMeshClosed(const std::unique_ptr<Mesh> mesh)
-{
-	std::unordered_map<size_t, unsigned int> connectedVerticesCount;
-
-	for (auto& triangle : mesh->triangles) {
-		connectedVerticesCount[triangle.a]++;
-	}
-
-	return false;
 }

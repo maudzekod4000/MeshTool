@@ -21,7 +21,7 @@ void MeshLoader::load(const std::string& path)
   bufferLoader.init();
   bufferLoader.loadBuffers(o);
 
-  std::unique_ptr<Mesh> mesh = MeshFactory::create(o);
+  this->mesh = MeshFactory::create(o);
 
-  this->stats = MeshStatistics::gatherStats(mesh->triangles.cbegin(), mesh->triangles.cend());
+  this->stats = MeshStatistics::gatherStats(this->mesh->triangles.cbegin(), this->mesh->triangles.cend());
 }

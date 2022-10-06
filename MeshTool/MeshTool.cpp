@@ -6,7 +6,8 @@
 #include "src/files/FileReader.h"
 #include "src/parser/GeometryObjectParser.h"
 #include "src/models/factories/MeshFactory.h"
-#include "src/analyser/MeshStatistics.h"
+#include "src/statistics/MeshStatistics.h"
+#include "src/algorithms/MeshAlgorithms.h"
 
 // Graphics related
 #include <glad/glad.h>
@@ -63,12 +64,7 @@ int main(int argc, char** argv)
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();
   ImGuiIO& io = ImGui::GetIO(); (void)io;
-
-  // Setup Dear ImGui style
   ImGui::StyleColorsDark();
-  //ImGui::StyleColorsLight();
-
-  // Setup Platform/Renderer backends
   ImGui_ImplGlfw_InitForOpenGL(windowPtr->getRaw(), true);
   ImGui_ImplOpenGL3_Init("#version 130");
 
@@ -102,10 +98,10 @@ int main(int argc, char** argv)
     g.pollEvents();
 
     if (selectedItemIdx != previousIndex) {
+      // Load a new mesh
       meshLoaderPtr.reset();
       meshLoaderPtr = std::make_shared<MeshLoader>();
       meshLoaderPtr->load(meshItems[selectedItemIdx]);
-      std::cout << meshLoaderPtr->indicesCount << std::endl;
       meshLoaded = true;
       previousIndex = selectedItemIdx;
     }
@@ -119,6 +115,10 @@ int main(int argc, char** argv)
     
     if (meshLoaded) {
       drawMeshStatistics(meshLoaderPtr->stats);
+    }
+
+    if (ImGui::Button("Subdivide") && meshLoaded) {
+      MeshAlgorithms::subdivide2(*meshLoaderPtr->mesh.get());
     }
 
     ImGui::End();
@@ -146,7 +146,6 @@ int main(int argc, char** argv)
       glDrawElements(GL_TRIANGLES, meshLoaderPtr->indicesCount, GL_UNSIGNED_INT, 0);
     }
 
-    // Rendering
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

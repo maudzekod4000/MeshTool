@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 
-#include "../analyser/MeshStatistics.h"
+#include "../statistics/MeshStatistics.h"
 #include "GPUBufferLoader.h"
 
 struct MeshLoader {
@@ -22,6 +22,7 @@ struct MeshLoader {
 	
 	size_t indicesCount;
 	MeshStatistics::Stats stats;
+	std::unique_ptr<Mesh> mesh;
 private:
 	GPUBufferLoader bufferLoader;
 };

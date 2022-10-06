@@ -6,8 +6,8 @@
 
 class Triangle {
 public:
-	Triangle() : a(Triangle::defaultVertex), b(Triangle::defaultVertex), c(Triangle::defaultVertex) {}
 	Triangle(Vertex& a, Vertex& b, Vertex& c) : a(a), b(b), c(c) {}
+	Triangle() : a(Triangle::defaultVertex), b(Triangle::defaultVertex), c(Triangle::defaultVertex) {}
 
 	Vertex& a;
 	Vertex& b;
