@@ -24,6 +24,8 @@
 #include "src/graphics/KeyboardInput.h"
 #include "src/graphics/camera/FPSCamera.h"
 
+#include "src/viewer/GPUBufferLoader.h"
+
 using namespace std;
 using namespace std::chrono;
 
@@ -71,46 +73,9 @@ int main(int argc, char** argv)
 
   MeshStatistics::Stats meshStats = MeshStatistics::gatherStats(mesh->triangles.cbegin(), mesh->triangles.cend());
 
-  cout << "Statistics:" << endl;
-  cout << "The smallest triangle is with area " << meshStats.smallest.area << endl;
-  cout << "The largest triangle is with area " << meshStats.largest.area << endl;
-  cout << "The average area of all triangles is " << meshStats.avgArea << endl;
-
-  VertexArrayObject vao;
-  vao.init();
-  vao.bind();
-
-  VertexBufferObject vbo;
-  vbo.init(GL_ARRAY_BUFFER);
-  vbo.bind();
-
-  // Transform vector to array
-  size_t componentCount = o.verticesComponents.size();
-  float* buffer = new float[componentCount];
-
-  for (int i = 0; i < componentCount; i++) {
-    buffer[i] = o.verticesComponents[i];
-  }
-
-  vbo.fillBuffer(buffer, componentCount);
-  delete[] buffer;
-
-  ElementBufferObject ebo;
-  ebo.init();
-
-  // Transform vector of indices to array
-  size_t indicesCount = o.trianglesIndices.size();
-  unsigned int* indices = new unsigned int[indicesCount];
-
-  for (size_t idx = 0; idx < indicesCount; idx++) {
-    indices[idx] = o.trianglesIndices[idx];
-  }
-
-  ebo.bind();
-  ebo.fillBuffer(indices, indicesCount * sizeof(unsigned int));
-  delete[] indices;
-
-  vao.addAttribute(VertexAttribute{ 0,3,3,0 });
+  GPUBufferLoader bufferLoader;
+  bufferLoader.init();
+  bufferLoader.loadBuffers(o);
 
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -138,6 +103,9 @@ int main(int argc, char** argv)
     ImGui::Text("Area: %f", triangle.area);
   };
 
+  const char* meshItems[3] = { "task_input/pyramid.json", "task_input/teapot.json", "task_input/lucy.json" };
+  int selectedItemIdx = -1;
+
   while (true) {
     windowPtr->clear();
 
@@ -147,7 +115,8 @@ int main(int argc, char** argv)
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    ImGui::Begin("Mesh Statistics", &showMeshStatisticsTool, ImGuiWindowFlags_None);
+    ImGui::Begin("Mesh Statistics", &showMeshStatisticsTool, ImGuiWindowFlags_AlwaysAutoResize);
+    ImGui::Combo("Select Mesh", &selectedItemIdx, meshItems, IM_ARRAYSIZE(meshItems));
     printTriangle("Smallest triangle:", meshStats.smallest);
     printTriangle("Largest triangle:", meshStats.largest);
     ImGui::TextColored(labelColor, "Average Area: %f", meshStats.avgArea);
@@ -172,7 +141,7 @@ int main(int argc, char** argv)
     shader.setUniformMat4("view", camera.getView());
     shader.setUniformMat4("projection", camera.getProjection());
 
-    glDrawElements(GL_TRIANGLES, indicesCount, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, o.trianglesIndices.size(), GL_UNSIGNED_INT, 0);
 
     // Rendering
     ImGui::Render();

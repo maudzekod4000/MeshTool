@@ -22,13 +22,13 @@ namespace MeshStatistics {
 	};
 
 	/// <summary>
-	/// Gathers stats about smallest, largest and average area of all triangles in a mesh.
-	/// Iterates elements sequentially and is used to calculate stats when number of elements in the iterator range
-	/// falls below the sensible lower limit for further division and thread creation.
+	/// Gathers stats by sequentially passing through an iterator range.
 	/// </summary>
-	/// <returns>Statistics about the mesh. See MeshStatistics::Stats.</returns>
 	Stats gatherStatsSeq(std::vector<Triangle>::const_iterator begin, std::vector<Triangle>::const_iterator end);
 
+	/// <summary>
+	/// Uses all cores to gather statistics and combines them into single result.
+	/// </summary>
 	Stats gatherStats(std::vector<Triangle>::const_iterator begin, std::vector<Triangle>::const_iterator end);
 };
 
