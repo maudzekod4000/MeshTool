@@ -175,6 +175,7 @@ xcopy /E /Y "$(ProjectDir)shaders" "$(TargetDir)shaders\"</Command>
     <ClCompile Include="src\models\factories\MeshFactory.cpp" />
     <ClCompile Include="src\parser\GeometryObjectParser.cpp" />
     <ClCompile Include="src\viewer\GPUBufferLoader.cpp" />
+    <ClCompile Include="src\viewer\MeshLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
@@ -209,6 +210,7 @@ xcopy /E /Y "$(ProjectDir)shaders" "$(TargetDir)shaders\"</Command>
     <ClInclude Include="src\parser\GeometryObjectParser.h" />
     <ClInclude Include="src\utils\MathUtils.h" />
     <ClInclude Include="src\viewer\GPUBufferLoader.h" />
+    <ClInclude Include="src\viewer\MeshLoader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

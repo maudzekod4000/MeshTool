@@ -39,3 +39,7 @@ void GPUBufferLoader::loadBuffers(const GeometryObject& geometry)
 
 	vao.addAttribute(VertexAttribute{ 0,3,3,0 });
 }
+
+void GPUBufferLoader::deinit()
+{
+}

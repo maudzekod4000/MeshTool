@@ -11,6 +11,7 @@ class GPUBufferLoader {
 public:
 	void init();
 	void loadBuffers(const GeometryObject&);
+	void deinit();
 private:
 	VertexArrayObject vao;
 	VertexBufferObject vbo;
