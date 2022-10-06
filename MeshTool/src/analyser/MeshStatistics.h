@@ -4,8 +4,10 @@
 #include <vector>
 #include <iterator>
 #include <iostream>
+#include <memory>
 
 #include "../models/Triangle.h"
+#include "../models/Mesh.h"
 
 namespace MeshStatistics {
 	static struct StatsTriangle {
@@ -31,6 +33,8 @@ namespace MeshStatistics {
 	/// Uses all cores to gather statistics and combines them into single result.
 	/// </summary>
 	Stats gatherStats(std::vector<Triangle>::const_iterator begin, std::vector<Triangle>::const_iterator end);
+
+	bool isMeshClosed(const std::unique_ptr<Mesh> mesh);
 };
 
 #endif // !MESH_STATISTICS_H

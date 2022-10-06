@@ -4,6 +4,8 @@
 #include <limits>
 #include <future>
 #include <thread>
+#include <unordered_map>
+#include <vector>
 
 #include "../utils/MathUtils.h"
 
@@ -95,4 +97,15 @@ MeshStatistics::Stats MeshStatistics::gatherStats(std::vector<Triangle>::const_i
 	combinedStats.triangleCount = triangleCount;
 
 	return combinedStats;
+}
+
+bool MeshStatistics::isMeshClosed(const std::unique_ptr<Mesh> mesh)
+{
+	std::unordered_map<size_t, unsigned int> connectedVerticesCount;
+
+	for (auto& triangle : mesh->triangles) {
+		connectedVerticesCount[triangle.a]++;
+	}
+
+	return false;
 }

@@ -105,6 +105,7 @@ int main(int argc, char** argv)
       meshLoaderPtr.reset();
       meshLoaderPtr = std::make_shared<MeshLoader>();
       meshLoaderPtr->load(meshItems[selectedItemIdx]);
+      std::cout << meshLoaderPtr->indicesCount << std::endl;
       meshLoaded = true;
       previousIndex = selectedItemIdx;
     }
