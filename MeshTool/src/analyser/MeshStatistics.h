@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <iterator>
+#include <iostream>
 
 #include "../models/Triangle.h"
 

@@ -126,10 +126,17 @@ int main(int argc, char** argv)
   ImGui_ImplGlfw_InitForOpenGL(windowPtr->getRaw(), true);
   ImGui_ImplOpenGL3_Init("#version 130");
 
-  // Our state
-  bool show_demo_window = true;
-  bool show_another_window = false;
-  ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+  bool showMeshStatisticsTool = true;
+  auto labelColor = ImVec4(0, 0, 1, 1);
+
+  auto printTriangle = [&labelColor](std::string label, const MeshStatistics::StatsTriangle& triangle) {
+    ImGui::TextColored(labelColor, label.c_str());
+    
+    ImGui::Text("Vertex 1: (%f, %f, %f)", triangle.a.position.x, triangle.a.position.y, triangle.a.position.z);
+    ImGui::Text("Vertex 2: (%f, %f, %f)", triangle.b.position.x, triangle.b.position.y, triangle.b.position.z);
+    ImGui::Text("Vertex 3: (%f, %f, %f)", triangle.c.position.x, triangle.c.position.y, triangle.c.position.z);
+    ImGui::Text("Area: %f", triangle.area);
+  };
 
   while (true) {
     windowPtr->clear();
@@ -140,8 +147,11 @@ int main(int argc, char** argv)
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    if (show_demo_window)
-      ImGui::ShowDemoWindow(&show_demo_window);
+    ImGui::Begin("Mesh Statistics", &showMeshStatisticsTool, ImGuiWindowFlags_None);
+    printTriangle("Smallest triangle:", meshStats.smallest);
+    printTriangle("Largest triangle:", meshStats.largest);
+    ImGui::TextColored(labelColor, "Average Area: %f", meshStats.avgArea);
+    ImGui::End();
 
     if (keyboard.isKeyPressed(GLFW_KEY_W)) {
       camera.moveForward();
