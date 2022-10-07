@@ -153,13 +153,15 @@ void MeshToolEngine::drawStatsWidget()
   ImGui::NewFrame();
 
   ImGui::Begin("Mesh Statistics", &showMeshStatisticsTool, ImGuiWindowFlags_AlwaysAutoResize);
+  ImGui::TextColored(labelColor, "Use M key to enable/disable mouse cursor");
+  ImGui::TextColored(labelColor, "and WASD keys and mouse to move around.");
   ImGui::Combo("Select Mesh", &selectedItemIdx, meshItems, IM_ARRAYSIZE(meshItems));
 
   if (meshLoaded) {
     drawMeshStats(meshLoaderPtr->stats);
   }
 
-  if (ImGui::Button("Subdivide") && meshLoaded) {
+  if (meshLoaded && ImGui::Button("Subdivide")) {
     subdivideMesh();
   }
 

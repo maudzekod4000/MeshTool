@@ -35,7 +35,7 @@ private:
 	FPSCamera camera;
 	Window window;
 
-	ImVec4 labelColor = ImVec4(0, 0, 1, 1);
+	ImVec4 labelColor = ImVec4(0, 1, 1, 1);
 	std::shared_ptr<MeshLoader> meshLoaderPtr;
 	const char* meshItems[3] = { "task_input/pyramid.json", "task_input/teapot.json", "task_input/lucy.json" };
 	bool showMeshStatisticsTool = true;
