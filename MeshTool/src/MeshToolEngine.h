@@ -42,6 +42,7 @@ private:
 	bool meshLoaded = false;
 	int selectedItemIdx = -1;
 	int previousIndex = selectedItemIdx;
+	long long subdivisionTime = 0;
 	
 	void onMouseMove(double x, double y);
 	void handleEvents();

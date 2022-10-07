@@ -3,15 +3,9 @@
 std::unique_ptr<Mesh> MeshAlgorithms::subdivide2(const Mesh& mesh) {
 	auto subdivMesh = std::make_unique<Mesh>();
 
-	subdivMesh->verticesIndex = mesh.verticesIndex;
+	subdivMesh->verticesIndex = std::move(mesh.verticesIndex);
 
-	int latestIdx = -1;
-
-	for (auto& pair : subdivMesh->verticesIndex) {
-		if (pair.first > latestIdx) {
-			latestIdx = pair.first;
-		}
-	}
+	int latestIdx = subdivMesh->verticesIndex.size() - 1;
 
 	for (auto& triangle : mesh.triangles) {
 		// Find mid-point between vertices A and C on current triangle

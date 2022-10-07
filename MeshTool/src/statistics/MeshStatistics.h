@@ -22,6 +22,7 @@ namespace MeshStatistics {
 		MeshStatistics::StatsTriangle largest;
 		float avgArea;
 		size_t triangleCount;
+		long long loadTime;
 	};
 
 	/// <summary>

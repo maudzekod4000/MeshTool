@@ -9,11 +9,11 @@
 
 class GeometryObjectBuilder {
 public:
-	void parse(const std::string& json);
+	void from(const std::string& json);
 
-	void fromMesh(std::unique_ptr<Mesh>& mesh);
+	void from(std::unique_ptr<Mesh>& mesh);
 
-	const GeometryObject& getGeometryObject() const;
+	const GeometryObject& get() const;
 
 	~GeometryObjectBuilder() = default;
 private:

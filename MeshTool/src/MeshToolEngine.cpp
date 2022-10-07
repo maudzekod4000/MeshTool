@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <functional>
+#include <chrono>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -116,6 +117,8 @@ void MeshToolEngine::drawMeshStats(const MeshStatistics::Stats& stats) const
   drawTriangleStats("Largest triangle:", stats.largest);
   ImGui::TextColored(labelColor, "Average Area: %f", stats.avgArea);
   ImGui::TextColored(labelColor, "Triangle Count: %d", stats.triangleCount);
+  ImGui::TextColored(labelColor, "Load Time: %lld ms.", stats.loadTime);
+  ImGui::TextColored(labelColor, "Subdivision Time: %lld ms.", subdivisionTime);
 }
 
 void MeshToolEngine::loadNewMesh()
@@ -126,13 +129,21 @@ void MeshToolEngine::loadNewMesh()
 
   meshLoaded = true;
   previousIndex = selectedItemIdx;
+  subdivisionTime = 0;
 }
 
 void MeshToolEngine::subdivideMesh()
 {
+  using namespace std::chrono;
+  auto start = high_resolution_clock::now();
+  
   auto subdividedMesh = std::move(MeshAlgorithms::subdivide2(*meshLoaderPtr->mesh.get()));
   resetMeshLoader();
   meshLoaderPtr->load(std::move(subdividedMesh));
+
+  auto end = high_resolution_clock::now();
+  auto duration = duration_cast<milliseconds>(end - start);
+  subdivisionTime = duration.count();
 }
 
 void MeshToolEngine::drawStatsWidget()

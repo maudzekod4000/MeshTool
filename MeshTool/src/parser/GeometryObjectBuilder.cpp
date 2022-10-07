@@ -7,7 +7,7 @@
 #include "../../lib/rapidjson-1.1.0/stringbuffer.h"
 #include "../../lib/rapidjson-1.1.0/document.h"
 
-void GeometryObjectBuilder::parse(const std::string& json)
+void GeometryObjectBuilder::from(const std::string& json)
 {
   using namespace rapidjson;
 
@@ -31,7 +31,7 @@ void GeometryObjectBuilder::parse(const std::string& json)
   }
 }
 
-void GeometryObjectBuilder::fromMesh(std::unique_ptr<Mesh>& mesh)
+void GeometryObjectBuilder::from(std::unique_ptr<Mesh>& mesh)
 {
   geometryObject.trianglesIndices.reserve(mesh->triangles.size() * 3);
 
@@ -51,7 +51,7 @@ void GeometryObjectBuilder::fromMesh(std::unique_ptr<Mesh>& mesh)
   }
 }
 
-const GeometryObject& GeometryObjectBuilder::getGeometryObject() const
+const GeometryObject& GeometryObjectBuilder::get() const
 {
   return geometryObject;
 }
