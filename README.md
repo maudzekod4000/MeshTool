@@ -1,7 +1,7 @@
 # MeshTool
 A tool for analysing and calculating data about meshes.
 
-[Demo - 25 MB GIF, so give it some time](https://github.com/pancanin/MeshTool/blob/main/MeshTool/demo/mesh-tool.gif)
+![Demo - 25 MB GIF, so give it some time](https://github.com/pancanin/MeshTool/blob/main/MeshTool/demo/mesh-tool.gif)
 
 ## Instalation
 
