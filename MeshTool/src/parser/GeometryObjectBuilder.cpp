@@ -33,11 +33,15 @@ void GeometryObjectBuilder::parse(const std::string& json)
 
 void GeometryObjectBuilder::fromMesh(std::unique_ptr<Mesh>& mesh)
 {
+  geometryObject.trianglesIndices.reserve(mesh->triangles.size() * 3);
+
   for (auto& triangle : mesh->triangles) {
     geometryObject.trianglesIndices.push_back(triangle.a.idx);
     geometryObject.trianglesIndices.push_back(triangle.b.idx);
     geometryObject.trianglesIndices.push_back(triangle.c.idx);
   }
+
+  geometryObject.verticesComponents.reserve(mesh->verticesIndex.size() * 3);
 
   for (size_t idx = 0; idx < mesh->verticesIndex.size(); idx++) {
     Vertex& vertex = mesh->verticesIndex[idx];
