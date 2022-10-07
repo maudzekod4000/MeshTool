@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <memory>
 
 #include "../statistics/MeshStatistics.h"
 #include "GPUBufferLoader.h"
@@ -19,6 +20,8 @@ struct MeshLoader {
 	/// </summary>
 	/// <param name="path">File path to mesh json file.</param>
 	void load(const std::string& path);
+
+	void load(std::unique_ptr<Mesh> mesh);
 	
 	size_t indicesCount;
 	MeshStatistics::Stats stats;

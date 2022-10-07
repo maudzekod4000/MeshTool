@@ -4,7 +4,7 @@
 #include <thread>
 
 #include "src/files/FileReader.h"
-#include "src/parser/GeometryObjectParser.h"
+#include "src/parser/GeometryObjectBuilder.h"
 #include "src/models/factories/MeshFactory.h"
 #include "src/statistics/MeshStatistics.h"
 #include "src/algorithms/MeshAlgorithms.h"
@@ -118,7 +118,10 @@ int main(int argc, char** argv)
     }
 
     if (ImGui::Button("Subdivide") && meshLoaded) {
-      MeshAlgorithms::subdivide2(*meshLoaderPtr->mesh.get());
+      auto subdividedMesh = std::move(MeshAlgorithms::subdivide2(*meshLoaderPtr->mesh.get()));
+      meshLoaderPtr.reset();
+      meshLoaderPtr = std::make_shared<MeshLoader>();
+      meshLoaderPtr->load(std::move(subdividedMesh));
     }
 
     ImGui::End();

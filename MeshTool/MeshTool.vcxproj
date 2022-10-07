@@ -173,7 +173,7 @@ xcopy /E /Y "$(ProjectDir)shaders" "$(TargetDir)shaders\"</Command>
     <ClCompile Include="src\graphics\opengl\vbo\VertexBufferObject.cpp" />
     <ClCompile Include="src\graphics\Window.cpp" />
     <ClCompile Include="src\models\factories\MeshFactory.cpp" />
-    <ClCompile Include="src\parser\GeometryObjectParser.cpp" />
+    <ClCompile Include="src\parser\GeometryObjectBuilder.cpp" />
     <ClCompile Include="src\statistics\MeshStatistics.cpp" />
     <ClCompile Include="src\viewer\GPUBufferLoader.cpp" />
     <ClCompile Include="src\viewer\MeshLoader.cpp" />
@@ -208,7 +208,7 @@ xcopy /E /Y "$(ProjectDir)shaders" "$(TargetDir)shaders\"</Command>
     <ClInclude Include="src\models\Triangle.h" />
     <ClInclude Include="src\models\TypeDefs.h" />
     <ClInclude Include="src\models\Vertex.h" />
-    <ClInclude Include="src\parser\GeometryObjectParser.h" />
+    <ClInclude Include="src\parser\GeometryObjectBuilder.h" />
     <ClInclude Include="src\statistics\MeshStatistics.h" />
     <ClInclude Include="src\utils\MathUtils.h" />
     <ClInclude Include="src\viewer\GPUBufferLoader.h" />

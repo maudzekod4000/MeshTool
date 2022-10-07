@@ -24,7 +24,7 @@
     <ClCompile Include="src\files\FileReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\parser\GeometryObjectParser.cpp">
+    <ClCompile Include="src\parser\GeometryObjectBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\models\factories\MeshFactory.cpp">
@@ -112,7 +112,7 @@
     <ClInclude Include="src\files\FileReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\parser\GeometryObjectParser.h">
+    <ClInclude Include="src\parser\GeometryObjectBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\models\TypeDefs.h">

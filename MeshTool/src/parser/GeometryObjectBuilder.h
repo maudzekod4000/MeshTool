@@ -2,19 +2,20 @@
 #define GEOMETRY_OBJECT_PARSER_H
 
 #include <string>
+#include <memory>
 
 #include "../models/GeometryObject.h"
+#include "../models/Mesh.h"
 
-/// <summary>
-/// Responsible for parsing of json string to GeometryObject and keeping an instance of GeometryObject until end of lifetime of this class' instance.
-/// </summary>
-class GeometryObjectParser {
+class GeometryObjectBuilder {
 public:
 	void parse(const std::string& json);
 
+	void fromMesh(std::unique_ptr<Mesh>& mesh);
+
 	const GeometryObject& getGeometryObject() const;
 
-	~GeometryObjectParser() = default;
+	~GeometryObjectBuilder() = default;
 private:
 	GeometryObject geometryObject;
 };
