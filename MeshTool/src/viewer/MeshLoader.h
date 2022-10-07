@@ -25,6 +25,12 @@ struct MeshLoader {
 	
 	size_t indicesCount;
 	MeshStatistics::Stats stats;
+
+	/// <summary>
+	/// We are storing the mesh to be able to subdivide it, but it increases the memory footprint.
+	/// Maybe it will be better if we load the mesh fresh from the file system and subdivide it by a 
+	/// user-specified factor. It will increase processing time, but decrease memory footprint.
+	/// </summary>
 	std::unique_ptr<Mesh> mesh;
 private:
 	GPUBufferLoader bufferLoader;
